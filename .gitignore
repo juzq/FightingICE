@@ -31,15 +31,10 @@ hs_err_pid*
 bin
 !.gitkeep
 log/point/*
-!.gitkeep
 log/replay/*
-!.gitkeep
 log/err/*
-!.gitkeep
 log/json/*
-!.gitkeep
 log/out/*
-!.gitkeep
 debugData
 *.ini
 #intellJ
