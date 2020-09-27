@@ -1,8 +1,6 @@
 package struct;
 
-import static org.lwjgl.opengl.GL11.*;
-
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -10,10 +8,12 @@ import java.awt.image.DataBufferByte;
 import java.awt.image.DataBufferInt;
 import java.nio.ByteBuffer;
 
-import org.lwjgl.BufferUtils;
-
 import manager.GraphicManager;
+import org.lwjgl.BufferUtils;
 import setting.GameSetting;
+
+
+import static org.lwjgl.opengl.GL11.*;
 
 /**
  * The class dealing with the screen information such as the game screen's image

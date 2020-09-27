@@ -1,11 +1,11 @@
 package render;
 
-import static org.lwjgl.opengl.GL11.*;
-
-import org.lwjgl.opengl.GL11;
-
 import image.Image;
 import image.LetterImage;
+import org.lwjgl.opengl.GL11;
+
+
+import static org.lwjgl.opengl.GL11.*;
 
 /**
  * 文字描画タスクを扱うクラス．

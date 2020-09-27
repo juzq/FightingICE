@@ -1,7 +1,5 @@
 package gamescene;
 
-import static org.lwjgl.glfw.GLFW.*;
-
 import java.io.DataInputStream;
 import java.io.EOFException;
 import java.io.File;
@@ -24,6 +22,9 @@ import struct.FrameData;
 import struct.Key;
 import struct.ScreenData;
 import util.ResourceDrawer;
+
+
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
 
 /**
  * リプレイの再生を行うクラス．

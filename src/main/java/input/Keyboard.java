@@ -1,13 +1,13 @@
 package input;
 
-import static org.lwjgl.glfw.GLFW.*;
-
 import java.util.Arrays;
-
-import org.lwjgl.glfw.GLFWKeyCallback;
 
 import enumerate.GameSceneName;
 import manager.InputManager;
+import org.lwjgl.glfw.GLFWKeyCallback;
+
+
+import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
 
 /**
  * キー入力を扱うクラス．

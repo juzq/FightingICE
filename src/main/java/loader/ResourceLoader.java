@@ -1,19 +1,8 @@
 package loader;
 
-import static org.lwjgl.opengl.GL11.*;
-
 import java.awt.image.BufferedImage;
 import java.awt.image.IndexColorModel;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -24,7 +13,6 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.imageio.ImageIO;
 
 import aiinterface.AIController;
@@ -36,6 +24,9 @@ import manager.SoundManager;
 import setting.GameSetting;
 import setting.LaunchSetting;
 import setting.ResourceSetting;
+
+
+import static org.lwjgl.opengl.GL11.*;
 
 /**
  * キャラクターの設定ファイルや画像等のリソースをロードするためのシングルトンパターンクラス．

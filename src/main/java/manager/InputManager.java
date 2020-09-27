@@ -1,7 +1,5 @@
 package manager;
 
-import static org.lwjgl.glfw.GLFW.*;
-
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,6 +20,9 @@ import struct.FrameData;
 import struct.GameData;
 import struct.Key;
 import struct.ScreenData;
+
+
+import static org.lwjgl.glfw.GLFW.*;
 
 /**
  * AIやキーボード等の入力関連のタスクを管理するマネージャークラス．

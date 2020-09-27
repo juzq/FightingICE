@@ -1,9 +1,6 @@
 package manager;
 
-import static org.lwjgl.opengl.GL11.*;
-
-import java.awt.Color;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -20,6 +17,9 @@ import render.QuadTask;
 import render.RenderTask;
 import render.StringTask;
 import setting.GameSetting;
+
+
+import static org.lwjgl.opengl.GL11.*;
 
 /**
  * 画像の描画を管理するマネージャークラス．

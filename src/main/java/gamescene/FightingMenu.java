@@ -1,7 +1,5 @@
 package gamescene;
 
-import static org.lwjgl.glfw.GLFW.*;
-
 import java.util.ArrayList;
 
 import enumerate.GameSceneName;
@@ -14,6 +12,9 @@ import setting.FlagSetting;
 import setting.GameSetting;
 import setting.LaunchSetting;
 import struct.Key;
+
+
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
 
 /**
  * 使用AI, 使用キャラクター, 繰り返し回数をセットするメニュー画面を扱うクラス．

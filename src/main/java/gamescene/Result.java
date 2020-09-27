@@ -1,7 +1,5 @@
 package gamescene;
 
-import static org.lwjgl.glfw.GLFW.*;
-
 import java.util.ArrayList;
 
 import enumerate.GameSceneName;
@@ -15,6 +13,9 @@ import setting.FlagSetting;
 import setting.GameSetting;
 import setting.LaunchSetting;
 import util.LogWriter;
+
+
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_ENTER;
 
 /**
  * リザルト画面のシーンを扱うクラス．

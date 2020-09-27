@@ -1,10 +1,10 @@
 package render;
 
-import static org.lwjgl.opengl.GL11.*;
-
+import image.Image;
 import org.lwjgl.opengl.GL11;
 
-import image.Image;
+
+import static org.lwjgl.opengl.GL11.*;
 
 /**
  * 画像を描画するタスクを扱うメソッド．

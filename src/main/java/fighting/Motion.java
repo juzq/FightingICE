@@ -1,6 +1,6 @@
 package fighting;
 
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.image.BandCombineOp;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
