@@ -40,3 +40,4 @@ debugData
 #intellJ
 /.idea/*
 *.iml
+target/
