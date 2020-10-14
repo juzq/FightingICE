@@ -296,8 +296,8 @@ public class Motion {
 				if (LaunchSetting.characterNames[0].equals(LaunchSetting.characterNames[1])) {
 					// 画素の反転
 					if (LaunchSetting.invertedPlayer == playerIndex + 1) {
-						Logger.getAnonymousLogger().log(Level.INFO,
-								"Inverting all character images of P" + playerIndex + 1);
+//						Logger.getAnonymousLogger().log(Level.INFO,
+//								"Inverting all character images of P" + playerIndex + 1);
 						img = invert(img);
 					}
 				}

@@ -1,6 +1,6 @@
 package core;
 
-import java.awt.Font;
+import java.awt.*;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,6 +16,7 @@ import loader.ResourceLoader;
 import manager.GameManager;
 import manager.GraphicManager;
 import manager.InputManager;
+import org.slf4j.LoggerFactory;
 import setting.FlagSetting;
 import setting.GameSetting;
 import setting.LaunchSetting;
@@ -25,6 +26,8 @@ import util.DeleteFiles;
  * ゲームの起動情報を設定し, 開始するゲームシーンを設定するクラス．
  */
 public class Game extends GameManager {
+    
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(Game.class);
 
 	/**
 	 * 親クラスであるGameManagerを初期化するクラスコンストラクタ．
@@ -161,7 +164,7 @@ public class Game extends GameManager {
 
 			// -Python側で起動するときは, Pythonシーンからゲームを開始する
 		} else if (FlagSetting.py4j) {
-			System.out.println("Python");
+		    log.info("Game run in py4j mode");
 			Python python = new Python();
 			this.startGame(python);
 

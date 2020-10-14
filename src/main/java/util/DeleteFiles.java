@@ -2,17 +2,23 @@ package util;
 
 import java.io.File;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * ログファイル削除用のシングルトンパターンクラス．
  */
 public class DeleteFiles {
+    
+    private static final Logger log = LoggerFactory.getLogger(DeleteFiles.class);
+    
 	private String[] foldersName;
 
 	/**
 	 * クラスコンストラクタ．
 	 */
 	private DeleteFiles() {
-		System.out.println("delete files...");
+        log.info("delete files...");
 		// 削除するフォルダ名
 		this.foldersName = new String[] { "log/point", "log/replay" };
 	}
@@ -46,6 +52,6 @@ public class DeleteFiles {
 				}
 			}
 		}
-		System.out.println("finish deleting");
+        log.info("finish deleting");
 	}
 }

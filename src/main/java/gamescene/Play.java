@@ -1,7 +1,5 @@
 package gamescene;
 
-import static org.lwjgl.glfw.GLFW.*;
-
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -20,6 +18,7 @@ import loader.ResourceLoader;
 import manager.GraphicManager;
 import manager.InputManager;
 import manager.SoundManager;
+import org.slf4j.LoggerFactory;
 import py4j.Py4JException;
 import setting.FlagSetting;
 import setting.GameSetting;
@@ -27,13 +26,20 @@ import struct.FrameData;
 import struct.GameData;
 import struct.ScreenData;
 import util.DebugActionData;
+import util.DeleteFiles;
 import util.LogWriter;
 import util.ResourceDrawer;
+
+
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_SPACE;
 
 /**
  * 対戦中のシーンを扱うクラス．
  */
 public class Play extends GameScene {
+    
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(DeleteFiles.class);
 
 	/**
 	 * 対戦処理を行うクラスのインスタンス．
@@ -190,7 +196,7 @@ public class Play extends GameScene {
 		}
 
 		if (Keyboard.getKeyDown(GLFW_KEY_SPACE)) {
-			System.out.println("P1 x:" + this.frameData.getCharacter(true).getX() + "\n" + "P2 x:"
+			log.info("P1 x:" + this.frameData.getCharacter(true).getX() + "\n" + "P2 x:"
 					+ this.frameData.getCharacter(false).getX() + "\n" + "P1 Left:"
 					+ this.frameData.getCharacter(true).getLeft() + "\n" + "P1 Right:"
 					+ this.frameData.getCharacter(true).getRight() + "\n" + "P2 Left:"
