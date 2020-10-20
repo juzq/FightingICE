@@ -61,6 +61,11 @@ public class DisplayManager {
 	 * ウィンドウを作成する際の初期化及びOpenGLの初期化処理を行う．
 	 */
 	private void initialize() {
+	    // disable window
+        if (!FlagSetting.enableWindow) {
+            Logger.getAnonymousLogger().log(Level.INFO, "Disable window mode");
+            return;
+        }
 		// Setup an error callback. The default implementation
 		// will print the error message in System.err.
 		GLFWErrorCallback.createPrint(System.err).set();
@@ -108,7 +113,7 @@ public class DisplayManager {
 		glfwMakeContextCurrent(this.window);
 
 		int sync;
-		if (!FlagSetting.enableWindow || FlagSetting.fastModeFlag) {
+		if (FlagSetting.fastModeFlag) {
 			sync = 0;
 		} else {
 			sync = 1;
@@ -118,15 +123,9 @@ public class DisplayManager {
 		glfwSwapInterval(sync);
 
 
-		if (FlagSetting.enableWindow) {
-			// Makes the window visible
-			glfwShowWindow(this.window);
-			Logger.getAnonymousLogger().log(Level.INFO, "Create Window " + width + "x" + height);
-		} else {
-			// Makes the window invisible
-			glfwHideWindow(this.window);
-			Logger.getAnonymousLogger().log(Level.INFO, "Disable window mode");
-		}
+        // Makes the window visible
+        glfwShowWindow(this.window);
+        Logger.getAnonymousLogger().log(Level.INFO, "Create Window " + width + "x" + height);
 	}
 
 	/**
@@ -136,26 +135,31 @@ public class DisplayManager {
 	 *            GameManagerクラスのインスタンス
 	 */
 	private void gameLoop(GameManager gm) {
-		glfwSetTime(0.0);
-
-		// This line is critical for LWJGL's interoperation with GLFW's
-		// OpenGL context, or any context that is managed externally.
-		// LWJGL detects the context that is current in the current thread,
-		// creates the GLCapabilities instance and makes the OpenGL
-		// bindings available for use.
-		GL.createCapabilities();
-
-		// Sets the clear color
-		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-		initGL();
-
-		// ゲームマネージャ初期化
-		gm.initialize();
+        
+        // enable window
+        if (FlagSetting.enableWindow) {
+            glfwSetTime(0.0);
+    
+            // This line is critical for LWJGL's interoperation with GLFW's
+            // OpenGL context, or any context that is managed externally.
+            // LWJGL detects the context that is current in the current thread,
+            // creates the GLCapabilities instance and makes the OpenGL
+            // bindings available for use.
+            GL.createCapabilities();
+    
+            // Sets the clear color
+            glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+            initGL();
+        }
+        
+        // ゲームマネージャ初期化
+        gm.initialize();
 
 		long lastNanos = System.nanoTime();
 		// Runs the rendering loop until the user has attempted to close the
 		// window.
-		while (!glfwWindowShouldClose(this.window)) {
+        boolean run = true;
+		while (run) {
 			// ゲーム終了の場合,リソースを解放してループを抜ける
 			if (gm.isExit()) {
 				gm.close();
@@ -164,19 +168,22 @@ public class DisplayManager {
 
 			// ゲーム状態の更新
 			gm.update();
-
-		   	if(!FlagSetting.fastModeFlag){
-		   		syncFrameRate(60, lastNanos);
-		   		lastNanos = System.nanoTime();
-		   	}
-			// バックバッファに描画する
-			GraphicManager.getInstance().render();
-
-			// バックバッファとフレームバッファを入れ替える
-			glfwSwapBuffers(this.window);
-			// Poll for window events. The key callback above will only be
-			// invoked during this call.
-			glfwPollEvents();
+			
+			if (FlagSetting.enableWindow) {
+                if (!FlagSetting.fastModeFlag) {
+                    syncFrameRate(60, lastNanos);
+                    lastNanos = System.nanoTime();
+                }
+                // バックバッファに描画する
+                GraphicManager.getInstance().render();
+                
+                // バックバッファとフレームバッファを入れ替える
+                glfwSwapBuffers(this.window);
+                // Poll for window events. The key callback above will only be
+                // invoked during this call.
+                glfwPollEvents();
+                run = !glfwWindowShouldClose(this.window);
+            }
 		}
 	}
 

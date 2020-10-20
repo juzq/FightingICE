@@ -1,9 +1,14 @@
 package aiinterface;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * AIの実行のタイミングなどのスレッド関連の処理を扱うクラス．
  */
 public class ThreadController {
+    
+    public static final Logger log = LoggerFactory.getLogger(ThreadController.class);
 
 	/**
 	 * ThreadController唯一のインスタンス
@@ -133,6 +138,7 @@ public class ThreadController {
 			}
 			this.processedAI1 = false;
 			this.processedAI2 = false;
+			log.debug("notify main thread");
 		}
 	}
 

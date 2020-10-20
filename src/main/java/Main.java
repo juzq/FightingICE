@@ -23,7 +23,7 @@ public class Main {
         SLF4JBridgeHandler.removeHandlersForRootLogger();
         // install slf4j bridge
         SLF4JBridgeHandler.install();
-	    log.debug("fightingICE starting...");
+	    log.info("fightingICE starting...");
 		Game game = new Game();
 		game.setOptions(options);
 		DisplayManager displayManager = new DisplayManager();

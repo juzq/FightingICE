@@ -142,9 +142,11 @@ public class Game extends GameManager {
 
 	@Override
 	public void initialize() {
-		// 使用フォントの初期化
-		Font awtFont = new Font("Times New Roman", Font.BOLD, 24);
-		GraphicManager.getInstance().setLetterFont(new LetterImage(awtFont, true));
+	    if (FlagSetting.enableWindow) {
+            // 使用フォントの初期化
+            Font awtFont = new Font("Times New Roman", Font.BOLD, 24);
+            GraphicManager.getInstance().setLetterFont(new LetterImage(awtFont, true));
+        }
 
 		createLogDirectories();
 

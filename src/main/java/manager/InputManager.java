@@ -1,5 +1,6 @@
 package manager;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,6 +14,7 @@ import informationcontainer.RoundResult;
 import input.KeyData;
 import input.Keyboard;
 import loader.ResourceLoader;
+import org.slf4j.LoggerFactory;
 import py4j.Py4JException;
 import setting.FlagSetting;
 import setting.LaunchSetting;
@@ -28,6 +30,8 @@ import static org.lwjgl.glfw.GLFW.*;
  * AIやキーボード等の入力関連のタスクを管理するマネージャークラス．
  */
 public class InputManager<Data> {
+    
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(InputManager.class);
 
 	/**
 	 * キー入力を格納するバッファ．
@@ -277,6 +281,7 @@ public class InputManager<Data> {
 	 * @see ScreenData
 	 */
 	public void setFrameData(FrameData frameData, ScreenData screenData) {
+        int[] frameSize = new int[ais.length];
 		for (int i = 0; i < this.ais.length; i++) {
 			if (this.ais[i] != null) {
 				if (!frameData.getEmptyFlag()) {
@@ -284,22 +289,33 @@ public class InputManager<Data> {
 				} else {
 					this.ais[i].setFrameData(new FrameData());
 				}
-				this.ais[i].setScreenData(new ScreenData(screenData));
+				if (screenData != null) {
+                    this.ais[i].setScreenData(new ScreenData(screenData));
+                }
 			}
 		}
-
+		// wait AI controller to finish.
+        try {
+            Thread.sleep(1000 / 60);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        log.debug("notify AI thread");
 		synchronized (this.endFrame) {
 			try {
 				ThreadController.getInstance().resetAllAIsObj();
+                log.debug("wait frame to AI");
 				if (FlagSetting.fastModeFlag) {
 					this.endFrame.wait();
-				} else {
-
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
+        if (!frameData.getEmptyFlag()) {
+            log.debug("add frame data: {} - {}, {}", frameData.getCharacter(true).getHp(),
+                    frameData.getCharacter(false).getHp(), Arrays.toString(frameSize));
+        }
 	}
 
 	/**

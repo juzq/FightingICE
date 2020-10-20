@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -125,7 +126,9 @@ public class Play extends GameScene {
 		this.endFrame = -1;
 
 		this.frameData = new FrameData();
-		this.screenData = new ScreenData();
+		if (FlagSetting.enableWindow) {
+            this.screenData = new ScreenData();
+        }
 		this.keyData = new KeyData();
 		this.roundResults = new ArrayList<RoundResult>();
 
@@ -158,8 +161,7 @@ public class Play extends GameScene {
 		if (FlagSetting.enableWindow && !FlagSetting.muteFlag) {
 			SoundManager.getInstance().play(SoundManager.getInstance().getBackGroundMusic());
 		}
-
-	}
+    }
 
 	@Override
 	public void update() {
@@ -235,7 +237,7 @@ public class Play extends GameScene {
 	 */
 	private void processingBreakTime() {
 		// ダミーフレームをAIにセット
-		InputManager.getInstance().setFrameData(new FrameData(), new ScreenData());
+		InputManager.getInstance().setFrameData(new FrameData(), FlagSetting.enableWindow ? new ScreenData() : null);
 
 		if (FlagSetting.enableWindow) {
 			GraphicManager.getInstance().drawQuad(0, 0, GameSetting.STAGE_WIDTH, GameSetting.STAGE_HEIGHT, 0, 0, 0, 0);
@@ -264,6 +266,7 @@ public class Play extends GameScene {
 			}
 		} else {
 			this.keyData = new KeyData(InputManager.getInstance().getKeyData());
+			log.debug(String.format("input data: %s", Arrays.toString(keyData.getKeys())));
 			this.fighting.processingFight(this.nowFrame, this.keyData);
 		}
 
@@ -289,7 +292,10 @@ public class Play extends GameScene {
 			DebugActionData.getInstance().countPlayerAction(this.fighting.getCharacters());
 		}
 
-		this.screenData = new ScreenData();
+		this.screenData = null;
+        if (FlagSetting.enableWindow) {
+            screenData = new ScreenData();
+        }
 
 		// AIにFrameDataをセット
 		InputManager.getInstance().setFrameData(this.frameData, this.screenData);

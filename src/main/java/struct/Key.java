@@ -99,4 +99,16 @@ public class Key {
 
 		return lever;
 	}
+    
+    @Override
+    public String toString() {
+        return (A ? "A" : "") +
+                (B ? "B" : "") +
+                (C ? "C" : "") +
+                (U ? "U" : "") +
+                (D ? "D" : "") +
+                (L ? "L" : "") +
+                (R ? "R" : "")
+                ;
+    }
 }

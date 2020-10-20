@@ -5,6 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import informationcontainer.RoundResult;
+import org.slf4j.LoggerFactory;
 import py4j.Py4JException;
 import struct.FrameData;
 import struct.GameData;
@@ -15,6 +16,8 @@ import struct.ScreenData;
  * AIのスレッドや処理を管理するクラス．
  */
 public class AIController extends Thread {
+    
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(AIController.class);
 
 	/**
 	 * AIに実装すべきメソッドを定義するインタフェース．
@@ -101,8 +104,9 @@ public class AIController extends Thread {
 
 	@Override
 	public void run() {
-		Logger.getAnonymousLogger().log(Level.INFO, "Start to run");
+		Logger.getAnonymousLogger().log(Level.INFO, String.format("%s Start to run", "TODO"));
 		while (isFighting) {
+		    log.debug("controller wait obj...");
 			synchronized (this.waitObj) {
 				try {
 					this.waitObj.wait();
@@ -124,6 +128,7 @@ public class AIController extends Thread {
 //			this.ai.getInformation(!this.framesData.isEmpty() ? this.framesData.removeFirst() : new FrameData(), isControl, this.framesData.getLast());
 //          for delay
 			this.ai.getInformation(!this.framesData.isEmpty() ? this.framesData.removeFirst() : new FrameData(), isControl);
+			log.debug("after ai get frame, size: {}", framesData.size());
 			
 			this.ai.getScreenData(this.screenData);
 			this.ai.processing();
